@@ -1,0 +1,5 @@
+.terraform
+*.env
+terraform/states/*.tfstate.backup
+terraform/states/*.tfstate
+terraform/states/*.tfout

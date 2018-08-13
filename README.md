@@ -17,7 +17,12 @@ will grant you a shell with terraform `0.11.7`
 
 refer to the `Makefile` for all other helpers
 
+
 # Deployment
+
+Some manual work
+
+create 2 files called `tmp/tfvars/default.tfvars` and `tmp/tfstate/default.tfstate`
 
 build lambda
 ```

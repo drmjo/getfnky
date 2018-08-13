@@ -2,8 +2,8 @@
 
 IT:=-it
 DEFAULT_USER:=default
-STATE_FILE:=terraform/states/${DEFAULT_USER}.tfstate
-OUT_FILE:=terraform/states/${DEFAULT_USER}.tfout
+STATE_FILE:=tmp/tfstate/${DEFAULT_USER}.tfstate
+TFVARS_FILE:=tmp/tfvars/${DEFAULT_USER}.tfvars
 
 define TERRAFORM_CLI
 docker run ${IT} --rm \
@@ -17,11 +17,13 @@ endef
 
 define TERRAFORM_APPLY
 ${TERRAFORM_CLI} /bin/terraform apply \
+  --var-file=${TFVARS_FILE} \
 	--state ${STATE_FILE}
 endef
 
 define TERRAFORM_PLAN
 ${TERRAFORM_CLI} /bin/terraform plan \
+	--var-file=${TFVARS_FILE} \
 	--state ${STATE_FILE}
 endef
 

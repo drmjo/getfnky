@@ -18,10 +18,13 @@ variable "EnableCustomDomain" {
 # will create the subdomain and the proper certificates
 # the certs will be in the us-east-1 regardless of any other settings
 # as AWS requires the edge caches to use a cert that lives iin the us-east-1
+#
+# the fqdn will be
+# {Version}.{SubDomain}.{TopLevelDomain}
 variable "TopLevelDomain" {
   default = "mjo.io"
 }
 
 variable "SubDomain" {
-  default = "v0.api.getfnky.labs"
+  default = "api.getfnky.labs"
 }

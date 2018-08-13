@@ -17,8 +17,15 @@ will grant you a shell with terraform `0.11.7`
 
 refer to the `Makefile` for all other helpers
 
-i.e.
-to create the lambda deployment bucket
+# Deployment
+
+build lambda
 ```
-make create-lambda-bucket
+cd lambda/status
+make
+```
+
+from the root of the repo deploy
+```
+make apply
 ```

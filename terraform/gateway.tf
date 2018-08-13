@@ -33,6 +33,21 @@ resource "aws_api_gateway_method_settings" "settings" {
   }
 }
 
+resource "aws_api_gateway_domain_name" "main" {
+  count = "${var.EnableCustomDomain}"
+  depends_on = [
+    "aws_acm_certificate_validation.cert"
+  ]
+  domain_name = "${var.Version}.${var.SubDomain}.${var.TopLevelDomain}"
+  certificate_arn = "${aws_acm_certificate.cert.arn}"
+}
+
+resource "aws_api_gateway_base_path_mapping" "test" {
+  api_id      = "${aws_api_gateway_rest_api.main.id}"
+  stage_name  = "${aws_api_gateway_deployment.main.stage_name}"
+  domain_name = "${aws_api_gateway_domain_name.main.domain_name}"
+}
+
 resource "aws_iam_role" "cloudwatch" {
   name = "${var.Namespace}${var.Environment}ApiGatewayCloudwatchAccessGlobalRole"
 

@@ -20,6 +20,11 @@ ${TERRAFORM_CLI} /bin/terraform apply \
 	--state ${STATE_FILE}
 endef
 
+define TERRAFORM_PLAN
+${TERRAFORM_CLI} /bin/terraform plan \
+	--state ${STATE_FILE}
+endef
+
 define AWS_CLI
 docker run ${IT} --rm \
   --env-file `pwd`/aws.env \
@@ -29,6 +34,7 @@ docker run ${IT} --rm \
   drmjo/aws:latest
 endef
 
+# Bin Bash will grant you a shell inside
 .PHONY: aws
 aws:
 	${AWS_CLI} /bin/bash
@@ -37,22 +43,23 @@ aws:
 terraform:
 	${TERRAFORM_CLI} /bin/bash
 
+# bootstrapping functions
 .PHONY: terraform-init
 terraform-init:
 	${TERRAFORM_CLI} /bin/terraform init terraform/
 
+# terraform plan and apply
 .PHONY: plan
 plan: terraform-init
-	${TERRAFORM_CLI} /bin/terraform plan \
-		--state ${STATE_FILE} \
-		terraform/
-
-.PHONY: create-lambda-bucket
-create-lambda-bucket:
-		${TERRAFORM_APPLY} \
-		--target aws_s3_bucket.lambda_bucket \
-		terraform/
+	${TERRAFORM_PLAN} terraform/
 
 .PHONY: apply
 apply:
-		${TERRAFORM_APPLY} terraform/
+	${TERRAFORM_APPLY} terraform/
+
+# lambda bucket create example
+# .PHONY: create-lambda-bucket
+# create-lambda-bucket:
+# 	${TERRAFORM_APPLY} \
+# 	--target aws_s3_bucket.lambda_bucket \
+# 	terraform/

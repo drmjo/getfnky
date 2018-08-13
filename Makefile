@@ -59,6 +59,12 @@ plan: terraform-init
 apply:
 	${TERRAFORM_APPLY} terraform/
 
+# build binary from git repo
+.PHONY: build
+build:
+	go get -u github.com/anthoneous/getfnky
+
+
 # lambda bucket create example
 # .PHONY: create-lambda-bucket
 # create-lambda-bucket:

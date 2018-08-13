@@ -10,8 +10,9 @@ resource "aws_api_gateway_rest_api" "main" {
 # default deployment is needed to satisfy dependencies
 resource "aws_api_gateway_deployment" "main" {
   depends_on = [
-    "aws_api_gateway_integration.status",
     "aws_api_gateway_integration.root",
+    "module.RouteStatus",
+    "module.RouteList",
   ]
 
   rest_api_id = "${aws_api_gateway_rest_api.main.id}"

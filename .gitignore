@@ -1,4 +1,2 @@
-.terraform
-*.env
 tmp/*
 !tmp/.gitkeep

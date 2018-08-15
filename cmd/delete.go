@@ -23,7 +23,7 @@ import (
 // deleteCmd represents the delete command
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
-	Short: "Delete an upload with fnky",
+	Short: "Delete a function uploaded with getfnky",
 	Long: `This command deletes individual uploads to getfnky repositories. For example:
 
 getfnky delete foo --tag 1.0.1

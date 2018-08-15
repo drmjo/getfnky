@@ -23,7 +23,7 @@ import (
 // getCmd represents the get command
 var getCmd = &cobra.Command{
 	Use:   "get",
-	Short: "A brief description of your command",
+	Short: "Download a function from getfnky",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 

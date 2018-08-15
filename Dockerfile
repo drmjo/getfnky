@@ -1,11 +1,12 @@
-FROM golang:alpine
+FROM golang:1.10-stretch as build
 
-WORKDIR /go/src/getfnky
-COPY . .
+ARG PACKAGE=github.com/anthoneous/getfnky
+COPY . /go/src/$PACKAGE
 
-RUN apk add git
+RUN go get -v $PACKAGE
 
-RUN go get -d -v ./...
-RUN go install -v ./...
+FROM debian:stretch-slim
 
-CMD ["getfnky"]
+COPY --from=build /go/bin/getfnky /bin/getfnky
+
+ENTRYPOINT ["/bin/getfnky"]
